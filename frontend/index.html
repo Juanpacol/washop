@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WASHOPS - Patrones de Diseño</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- SIDEBAR IZQUIERDO -->
+        <aside class="sidebar">
+            <div class="logo">WASHOPS</div>
+
+            <nav class="nav">
+                <div class="nav-section">
+                    <button class="nav-btn active" data-page="dashboard">📊 Dashboard</button>
+                    <button class="nav-btn" data-page="services">🚗 Services</button>
+                </div>
+
+                <div class="nav-section-title">MANAGEMENT</div>
+                <div class="nav-section">
+                    <button class="nav-btn" data-page="customers">👥 Customers</button>
+                    <button class="nav-btn" data-page="payments">💰 Payments</button>
+                    <button class="nav-btn" data-page="reports">📈 Reports</button>
+                </div>
+
+                <div class="nav-section-title">SETTINGS</div>
+                <div class="nav-section disabled">
+                    <button class="nav-btn disabled-btn">⚙️ Settings</button>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <header class="header">
+                <h1 id="pageTitle">🚿 Dashboard</h1>
+                <div class="header-actions">
+                    <input type="text" class="search-box" placeholder="Search service, plate...">
+                    <button class="btn-new-service" id="btnNewService" style="display:none;">+ New Service</button>
+                </div>
+            </header>
+
+            <!-- CONTENEDOR 3 COLUMNAS -->
+            <div class="page-wrapper">
+                <!-- PAGE: DASHBOARD -->
+                <div id="dashboard" class="page active page-content">
+                <div class="metrics">
+                    <div class="metric-card">
+                        <div style="font-size: 28px; margin-bottom: 10px;">🚗</div>
+                        <div class="metric-label">Services Today</div>
+                        <div class="metric-value">24</div>
+                    </div>
+                    <div class="metric-card">
+                        <div style="font-size: 28px; margin-bottom: 10px;">✓</div>
+                        <div class="metric-label">Completed</div>
+                        <div class="metric-value">18</div>
+                    </div>
+                    <div class="metric-card">
+                        <div style="font-size: 28px; margin-bottom: 10px;">⏱️</div>
+                        <div class="metric-label">In Progress</div>
+                        <div class="metric-value">4</div>
+                    </div>
+                    <div class="metric-card">
+                        <div style="font-size: 28px; margin-bottom: 10px;">💵</div>
+                        <div class="metric-label">Today's Revenue</div>
+                        <div class="metric-value">$842K</div>
+                    </div>
+                </div>
+
+                <div class="kanban">
+                    <div class="kanban-header">
+                        <h2>Active Services</h2>
+                        <a href="#" class="kanban-view-all">View all →</a>
+                    </div>
+                    <div class="kanban-board">
+                        <div class="kanban-column">
+                            <h3>Pendiente (0)</h3>
+                        </div>
+
+                        <div class="kanban-column">
+                            <h3>En Progreso (0)</h3>
+                        </div>
+
+                        <div class="kanban-column">
+                            <h3>Completado (0)</h3>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <!-- PAGE: SERVICES -->
+                <div id="services" class="page page-content">
+                    <div class="services-header">
+                        <div class="services-filters">
+                            <button class="filter-btn active" data-filter="all">All (24)</button>
+                            <button class="filter-btn" data-filter="PENDING">Pending (0)</button>
+                            <button class="filter-btn" data-filter="IN_PROGRESS">In Progress (0)</button>
+                            <button class="filter-btn" data-filter="COMPLETED">Completed (0)</button>
+                            <button class="filter-btn" data-filter="CANCELLED">Cancelled (0)</button>
+                        </div>
+                        <div class="services-actions">
+                            <button class="btn-action">📅 Today</button>
+                            <button class="btn-action">📥 Export</button>
+                            <button class="btn-new-service" id="btnNewService2">+ New Service</button>
+                        </div>
+                    </div>
+
+                    <div class="services-search">
+                        <input type="text" placeholder="Search by plate or customer..." class="search-input">
+                    </div>
+
+                    <table class="services-table">
+                        <thead>
+                            <tr>
+                                <th>#ID</th>
+                                <th>PLATE</th>
+                                <th>CUSTOMER / VEHICLE</th>
+                                <th>TYPE</th>
+                                <th>STATUS</th>
+                                <th>PRICE</th>
+                                <th>TIME</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- PAGE: CUSTOMERS -->
+                <div id="customers" class="page page-content">
+                    <div class="customers-header">
+                        <div class="customers-filters">
+                            <button class="filter-btn active" data-filter="all">All (0)</button>
+                            <button class="filter-btn" data-filter="FREQUENT">Frequent (0)</button>
+                            <button class="filter-btn" data-filter="CORPORATE">Corporate (0)</button>
+                            <button class="filter-btn" data-filter="OCCASIONAL">Occasional (0)</button>
+                        </div>
+                        <div class="customers-actions">
+                            <button class="btn-action">📥 Export</button>
+                            <button class="btn-new-service" id="btnNewCustomer">+ New Customer</button>
+                        </div>
+                    </div>
+
+                    <div class="customers-search">
+                        <input type="text" placeholder="Search by name or email..." class="search-input">
+                    </div>
+
+                    <div id="customersGrid" class="customers-grid">
+                        <!-- Los clientes se cargarán aquí dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- PAGE: PAYMENTS -->
+                <div id="payments" class="page page-content">
+                    <div class="payments-header">
+                        <div class="payments-tabs">
+                            <button class="tab-btn active" data-tab="transactions">Transactions</button>
+                            <button class="tab-btn" data-tab="summary">Monthly Summary</button>
+                            <button class="tab-btn" data-tab="outstanding">Outstanding</button>
+                        </div>
+                        <div class="payments-actions">
+                            <input type="text" placeholder="Search transaction..." class="search-input">
+                            <button class="btn-action">📅 March 2026</button>
+                            <button class="btn-action">📥 Export</button>
+                        </div>
+                    </div>
+
+                    <!-- TAB: TRANSACTIONS -->
+                    <div id="tab-transactions" class="tab-content active">
+                        <div class="payments-wrapper">
+                            <div class="payments-table-section">
+                                <table class="payments-table">
+                                    <thead>
+                                        <tr>
+                                            <th>#TRX</th>
+                                            <th>DATE</th>
+                                            <th>SERVICE / CUSTOMER</th>
+                                            <th>METHOD</th>
+                                            <th>AMOUNT</th>
+                                            <th>STATUS</th>
+                                            <th>ACTION</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="paymentsTableBody">
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="payments-sidebar">
+                                <div class="revenue-card">
+                                    <div class="revenue-title">MONTHLY REVENUE</div>
+                                    <div class="revenue-amount" id="totalRevenue">$0</div>
+                                    <div class="revenue-subtitle" id="revenueSubtitle">March 2026 · 0 transactions</div>
+                                </div>
+
+                                <div class="service-breakdown">
+                                    <div class="breakdown-title">BY SERVICE TYPE</div>
+                                    <div id="serviceTypeChart" class="service-chart">
+                                        <!-- Se cargará dinámicamente -->
+                                    </div>
+                                </div>
+
+                                <div class="payment-methods-card">
+                                    <div class="methods-title">PAYMENT METHODS</div>
+                                    <div id="paymentMethodsList" class="methods-list">
+                                        <!-- Se cargará dinámicamente -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB: MONTHLY SUMMARY -->
+                    <div id="tab-summary" class="tab-content">
+                        <div style="padding: 40px; text-align: center; color: #999;">
+                            Monthly Summary - Coming Soon
+                        </div>
+                    </div>
+
+                    <!-- TAB: OUTSTANDING -->
+                    <div id="tab-outstanding" class="tab-content">
+                        <div style="padding: 40px; text-align: center; color: #999;">
+                            Outstanding Payments - Coming Soon
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PAGE: REPORTS -->
+                <div id="reports" class="page page-content">
+                    <div class="reports-header">
+                        <div class="reports-filters">
+                            <button class="filter-btn active" data-filter="month">This Month</button>
+                            <button class="filter-btn" data-filter="week">This Week</button>
+                            <button class="filter-btn" data-filter="today">Today</button>
+                            <button class="filter-btn" data-filter="quarter">Quarter</button>
+                            <button class="filter-btn" data-filter="custom">Custom Range</button>
+                        </div>
+                        <div class="reports-actions">
+                            <input type="text" placeholder="Search report..." class="search-input">
+                            <button class="btn-action">📅 March 2026</button>
+                            <button class="btn-action">📥 Export</button>
+                        </div>
+                    </div>
+
+                    <!-- KPI Cards -->
+                    <div class="reports-metrics">
+                        <div class="metric-card">
+                            <div class="metric-label">Total Revenue</div>
+                            <div class="metric-value" id="metricRevenue">$0</div>
+                            <div class="metric-change positive">16% vs last month</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Total Services</div>
+                            <div class="metric-value" id="metricServices">0</div>
+                            <div class="metric-change positive">12% vs last month</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">New Customers</div>
+                            <div class="metric-value" id="metricCustomers">0</div>
+                            <div class="metric-change neutral">0% vs last month</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Avg. Service Time</div>
+                            <div class="metric-value" id="metricTime">0 min</div>
+                            <div class="metric-change negative">3 min vs last month</div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Row -->
+                    <div class="reports-charts-grid">
+                        <!-- Bar Chart -->
+                        <div class="chart-container">
+                            <div class="chart-title">Revenue & Services — March 2026</div>
+                            <div class="chart-subtitle">Daily breakdown: Revenue (blue) vs Service count (gray)</div>
+                            <canvas id="revenueChart" width="500" height="250"></canvas>
+                        </div>
+
+                        <!-- Pie Chart -->
+                        <div class="chart-container">
+                            <div class="chart-title">Revenue by Service Type</div>
+                            <div class="chart-subtitle">Distribution March 2026</div>
+                            <div style="display: flex; align-items: center; justify-content: space-around; padding: 20px 0;">
+                                <canvas id="pieChart" width="200" height="200"></canvas>
+                                <div id="pieLegend" class="pie-legend"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Performance Table -->
+                    <div class="reports-table-section">
+                        <div class="chart-title">Top Service Types — Performance Breakdown</div>
+                        <div class="chart-subtitle">Ranked by revenue - March 2026</div>
+                        <table class="reports-table">
+                            <thead>
+                                <tr>
+                                    <th>Service Type</th>
+                                    <th>Total Services</th>
+                                    <th>Revenue</th>
+                                    <th>Avg Price</th>
+                                    <th>Avg Time</th>
+                                    <th>Revenue Share</th>
+                                </tr>
+                            </thead>
+                            <tbody id="performanceTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- PANEL DERECHO: RECENT ACTIVITY -->
+                <aside class="sidebar-right">
+                    <h3>Recent Activity</h3>
+                    <div id="recentActivity" class="activity-list">
+                        <div class="activity-empty">Sin actividad</div>
+                    </div>
+                </aside>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL: Crear Servicio -->
+    <div id="modalNewService" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Crear Nuevo Servicio</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <!-- PASO 1: FACTORY METHOD -->
+                <div class="step" id="step1">
+                    <h3>Paso 1: Selecciona Tipo de Servicio [FACTORY METHOD]</h3>
+                    <div class="service-options">
+                        <div class="service-card" data-type="basic">
+                            <div class="service-name">BASIC</div>
+                            <div class="service-price">$45,000</div>
+                            <div class="service-desc">Lavado simple</div>
+                        </div>
+                        <div class="service-card" data-type="full">
+                            <div class="service-name">FULL</div>
+                            <div class="service-price">$75,000</div>
+                            <div class="service-desc">Lavado + Secado</div>
+                        </div>
+                        <div class="service-card" data-type="premium">
+                            <div class="service-name">PREMIUM</div>
+                            <div class="service-price">$120,000</div>
+                            <div class="service-desc">Profesional completo</div>
+                        </div>
+                        <div class="service-card" data-type="express">
+                            <div class="service-name">EXPRESS</div>
+                            <div class="service-price">$35,000</div>
+                            <div class="service-desc">Rápido (20 min)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PASO 2: DECORATOR PATTERN -->
+                <div class="step" id="step2" style="display:none;">
+                    <h3>Paso 2: Agrega Extras Opcionales [DECORATOR PATTERN]</h3>
+                    <div class="extras-options">
+                        <label class="extra-checkbox">
+                            <input type="checkbox" name="extra" value="waxing">
+                            <span class="extra-name">Encerado</span>
+                            <span class="extra-price">+$15,000</span>
+                        </label>
+                        <label class="extra-checkbox">
+                            <input type="checkbox" name="extra" value="vacuum">
+                            <span class="extra-name">Vacío Interior</span>
+                            <span class="extra-price">+$12,000</span>
+                        </label>
+                        <label class="extra-checkbox">
+                            <input type="checkbox" name="extra" value="tire">
+                            <span class="extra-name">Pulimiento Llantas</span>
+                            <span class="extra-price">+$10,000</span>
+                        </label>
+                    </div>
+
+                    <div class="price-summary">
+                        <div class="price-row">
+                            <span>Precio Base:</span>
+                            <span id="basePrice">$0</span>
+                        </div>
+                        <div class="price-row">
+                            <span>Extras:</span>
+                            <span id="extrasPrice">$0</span>
+                        </div>
+                        <div class="price-row total">
+                            <span>TOTAL:</span>
+                            <span id="totalPrice">$0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PASO 3: DATOS DEL CLIENTE -->
+                <div class="step" id="step3" style="display:none;">
+                    <h3>Paso 3: Información del Cliente [STATE: PENDING]</h3>
+                    <div class="form-group">
+                        <label>Cliente</label>
+                        <input type="text" id="customerName" placeholder="Nombre del cliente">
+                    </div>
+                    <div class="form-group">
+                        <label>Placa del Vehículo</label>
+                        <input type="text" id="vehiclePlate" placeholder="ABC-123">
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="btnBack" style="display:none;">← Atrás</button>
+                <button class="btn btn-primary" id="btnNext">Siguiente →</button>
+                <button class="btn btn-success" id="btnCreate" style="display:none;">Crear Servicio</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

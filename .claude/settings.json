@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \".\" -Recurse -Depth 2)",
+      "Bash(Select-Object FullName)",
+      "Bash(python main.py)",
+      "Bash(sed -i 's/✓/[OK]/g' tests.py)",
+      "Bash(sed -i 's/✗/[ERROR]/g' tests.py)",
+      "Bash(python tests.py)",
+      "Bash(python -c ' *)",
+      "Bash(python ejemplos_practicos.py)",
+      "Bash(Get-ChildItem -Recurse -Directory)",
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(grep \"\\\\.py$\")"
+    ]
+  }
+}

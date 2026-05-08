@@ -1,0 +1,8 @@
+# WASHOPS - Design Patterns Implementation
+# No external dependencies required
+# Python 3.8+
+
+# Development dependencies (optional)
+# pytest==7.0.0
+# black==22.0.0
+# pylint==2.12.0
