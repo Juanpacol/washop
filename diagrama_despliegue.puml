@@ -1,0 +1,69 @@
+@startuml WASHOPS_Deployment_Diagram
+!define AWSPUML https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v14.0/dist
+skinparam linetype ortho
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+
+title WASHOPS - UML Deployment Diagram
+
+package "End User Device" as device {
+    node "Web Browser" as browser {
+        artifact "Chrome/Firefox\nSafari/Edge" as browserApp
+    }
+
+    artifact "localStorage" as storage
+}
+
+package "Browser Runtime" as runtime {
+    node "Execution Environment" as env {
+        artifact "index.html" as html
+        artifact "styles.css" as css
+        artifact "app.js" as js
+    }
+}
+
+package "GitHub Pages Server" as server {
+    node "Web Server" as webserver {
+        artifact "Web Files" as files
+    }
+}
+
+device ..> runtime : HTTP GET /
+runtime ..> server : retrieves\n(index.html, styles.css, app.js)
+runtime ..> storage : stores\n(services, customers, payments)
+
+note right of browser
+  User interacts with
+  WASHOPS application
+  in web browser
+end note
+
+note right of html
+  Dashboard
+  Services
+  Customers
+  Payments
+  Reports
+end note
+
+note right of webserver
+  URL: https://Juanpacol.github.io/wahop/
+  HTTPS: Automatic
+  CDN: Global
+end note
+
+note right of storage
+  Data Persistence:
+  - washops_services
+  - washops_customers
+  - washops_payments
+end note
+
+legend right
+  |<#a5d8ff> Node |
+  |<#ffc9c9> Artifact |
+  |<#d0bfff> Execution Environment |
+end legend
+
+@enduml
